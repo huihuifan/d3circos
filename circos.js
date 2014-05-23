@@ -70,8 +70,6 @@ draw_circos(matrix);
 function draw_circos(matrix) {
 
 	chord_graph.selectAll("text").remove();
-	chord_graph.selectAll("arc").remove();
-	chord_graph.selectAll("chord").remove();
 	d3.selectAll(".legend").remove();
 
 	var pathnames = ["Circadian Clock", "Photoperiod", "Casein Kinase", "Vernalization", "Flower Development", "Gibberellic Acid Production", "Autonomous Flowering Time", "Long Day", "Short Day"]
@@ -300,6 +298,7 @@ function draw_circos(matrix) {
     	.attr("height", 30)
     	.attr("x", 596)
     	.attr("y", 200)
+        .attr("class", "legend_gradient")
     	.style("fill", "url(#gradient)")
     	.style("stroke-width", "2px")
     	.style("stroke", "white");
@@ -321,6 +320,18 @@ function rerender(filter_value) {
 		.style("opacity", 0)
 		.duration(1000)
 		.remove();
+
+    d3.selectAll(".fill_arc")
+        .transition()
+        .style("opacity", 0)
+        .duration(1000)
+        .remove();
+
+    d3.selectAll("defs")
+        .remove();
+
+    d3.selectAll(".legend_gradient")
+        .remove();
 
 	create_matrix(filter_value);
 
